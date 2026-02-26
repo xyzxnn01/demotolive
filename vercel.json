@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "functions": {
+    "api/render.js": {
+      "includeFiles": "_content.html"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/_content.html",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/quotexcode.html"
+    }
+  ]
+}
