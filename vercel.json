@@ -1,21 +1,16 @@
 {
   "version": 2,
-  "functions": {
-    "api/render.js": {
-      "includeFiles": "_content.html"
-    }
-  },
-  "redirects": [
+  "routes": [
     {
-      "source": "/_content.html",
-      "destination": "/",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
+      "src": "/",
+      "dest": "/_content.html",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
+    },
     {
-      "source": "/",
-      "destination": "/quotexcode.html"
+      "src": "/(.*)",
+      "dest": "/_content.html"
     }
   ]
 }
